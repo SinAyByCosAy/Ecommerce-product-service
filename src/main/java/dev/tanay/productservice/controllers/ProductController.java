@@ -1,5 +1,7 @@
 package dev.tanay.productservice.controllers;
 
+import dev.tanay.productservice.services.ProductService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 //all APIs around products
@@ -8,12 +10,26 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/products")
 public class ProductController {
+
+//    @Autowired
+    private ProductService productService;
+
+    public ProductController(ProductService productService){
+        this.productService = productService;
+    }
+
+//    @Autowired
+//    void setProductService(ProductService productService){
+//        this.productService = productService;
+//    }
     @GetMapping
     public String getAllProducts(){
         return "3 products: Iphone, MacBook Pro, Boat Speakers";
     }
 
-    @GetMapping("`{id}")
+    // localhost:8080//products/id
+    // localhost:8080//products/123
+    @GetMapping("{id}")
     public String getProductById(@PathVariable("id") Long id){
         return "Got the product : "+ id;
     }
