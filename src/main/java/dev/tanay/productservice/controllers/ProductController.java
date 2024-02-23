@@ -2,6 +2,7 @@ package dev.tanay.productservice.controllers;
 
 import dev.tanay.productservice.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
 //all APIs around products
@@ -14,7 +15,7 @@ public class ProductController {
 //    @Autowired
     private ProductService productService;
 
-    public ProductController(ProductService productService){
+    public ProductController(@Qualifier("SelfProductServiceImpl") ProductService productService){
         this.productService = productService;
     }
 
