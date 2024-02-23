@@ -12,6 +12,7 @@ public class ProductController {
     public String getAllProducts(){
         return "3 products: Iphone, MacBook Pro, Boat Speakers";
     }
+
     @GetMapping("`{id}")
     public String getProductById(@PathVariable("id") Long id){
         return "Got the product : "+ id;
