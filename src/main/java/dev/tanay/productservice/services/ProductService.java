@@ -4,5 +4,5 @@ import dev.tanay.productservice.models.Product;
 
 public interface ProductService {
 
-    Product getProductById(Long id);
+    String getProductById(Long id);
 }

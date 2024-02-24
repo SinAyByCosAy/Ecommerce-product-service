@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 public class FakeStoreProductService implements ProductService{
 
     @Override
-    public Product getProductById(Long id) {
-        return new Product();
+    public String getProductById(Long id) {
+        return "Fetched details for the product id: "+ id;
     }
 }

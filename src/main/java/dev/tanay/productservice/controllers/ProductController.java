@@ -15,7 +15,7 @@ public class ProductController {
 //    @Autowired
     private ProductService productService;
 
-    public ProductController(@Qualifier("SelfProductServiceImpl") ProductService productService){
+    public ProductController(@Qualifier("FakeStoreProductService") ProductService productService){
         this.productService = productService;
     }
 
@@ -32,7 +32,7 @@ public class ProductController {
     // localhost:8080//products/123
     @GetMapping("{id}")
     public String getProductById(@PathVariable("id") Long id){
-        return "Got the product : "+ id;
+        return productService.getProductById(id);
     }
 
     @DeleteMapping("{id}")
