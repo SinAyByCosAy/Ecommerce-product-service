@@ -7,7 +7,7 @@ import lombok.Setter;
 @Setter
 public class Product extends BaseModel{
     private String title;
-    private String desc;
+    private String description;
     private String image;
     private Category category;
     //doubles have precisions issue, should be int. We are using double for FakeStore API

@@ -6,4 +6,5 @@ import dev.tanay.productservice.models.Product;
 public interface ProductService {
 
     GenericProductDto getProductById(Long id);
+    GenericProductDto createProduct(GenericProductDto product);
 }

@@ -16,6 +16,12 @@ public class FakeStoreProductService implements ProductService{
     public FakeStoreProductService(RestTemplateBuilder restTemplateBuilder){
         restTemplate = restTemplateBuilder.build();
     }
+
+    @Override
+    public GenericProductDto createProduct(GenericProductDto product) {
+        return null;
+    }
+
     @Override
     public GenericProductDto getProductById(Long id) {
 //        RestTemplate restTemplate = restTemplateBuilder.build();
