@@ -33,6 +33,7 @@ public class FakeStoreProductService implements ProductService{
                 restTemplate.getForEntity(getProductRequestURL, FakeStoreProductDto.class, id);
 
         FakeStoreProductDto fakeStoreProductDto = response.getBody();
+//        FakeStoreProductDto fakeStoreProductDto = restTemplate.getForObject(getProductRequestURL, FakeStoreProductDto.class, id);
         GenericProductDto product = new GenericProductDto();
 
         product.setId(fakeStoreProductDto.getId());
