@@ -9,5 +9,5 @@ public interface ProductService {
 
     GenericProductDto getProductById(Long id);
     GenericProductDto createProduct(GenericProductDto product);
-    List<GenericProductDto> getAllProducts(){}
+    List<GenericProductDto> getAllProducts();
 }
