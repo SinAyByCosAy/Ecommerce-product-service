@@ -68,4 +68,15 @@ public class FakeStoreProductService implements ProductService{
                 .map(this::mapToGenericDto)
                 .collect(Collectors.toList());
     }
+    private GenericProductDto mapToGenericDto(FakeStoreProductDto fakeStoreProductDto){
+        GenericProductDto product = new GenericProductDto();
+        product.setId(fakeStoreProductDto.getId());
+        product.setTitle(fakeStoreProductDto.getTitle());
+        product.setPrice(fakeStoreProductDto.getPrice());
+        product.setCategory(fakeStoreProductDto.getCategory());
+        product.setDescription(fakeStoreProductDto.getDescription());
+        product.setImage(fakeStoreProductDto.getImage());
+
+        return product;
+    }
 }
