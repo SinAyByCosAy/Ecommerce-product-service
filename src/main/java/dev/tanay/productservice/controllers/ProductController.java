@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 //all APIs around products
 //For spring to know that this class will have a lot of endpoints, we'll annotate it with REST Controller
 //spring injects it's power through annotations
@@ -25,8 +27,8 @@ public class ProductController {
 //        this.productService = productService;
 //    }
     @GetMapping
-    public String getAllProducts(){
-        return "3 products: Iphone, MacBook Pro, Boat Speakers";
+    public List<GenericProductDto> getAllProducts(){
+        return productService.getAllProducts();
     }
 
     // localhost:8080//products/id
