@@ -63,4 +63,9 @@ public class FakeStoreProductService implements ProductService{
         List<GenericProductDto> products = convertToGenericDto(fakeStoreProducts);
         return products;
     }
+    private List<GenericProductDto> convertToGenericDto(List<FakeStoreProductDto> fakeStoreProducts){
+        return fakeStoreProducts.stream()
+                .map(this::mapToGenericDto)
+                .collect(Collectors.toList());
+    }
 }
