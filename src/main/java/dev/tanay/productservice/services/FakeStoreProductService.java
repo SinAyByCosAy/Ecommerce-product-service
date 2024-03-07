@@ -5,6 +5,7 @@ import dev.tanay.productservice.dtos.GenericProductDto;
 import dev.tanay.productservice.models.Product;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,7 @@ public class FakeStoreProductService implements ProductService{
     private String getProductRequestURL = "https://fakestoreapi.com/products/{id}";
     private String createProductRequestURL = "https://fakestoreapi.com/products";
     private String getAllProductsURL = "https://fakestoreapi.com/products";
+    private String updateProductRequestURL = "https://fakestoreapi.com/products/{id}";
     public FakeStoreProductService(RestTemplateBuilder restTemplateBuilder){
         restTemplate = restTemplateBuilder.build();
     }
@@ -63,6 +65,22 @@ public class FakeStoreProductService implements ProductService{
         List<GenericProductDto> products = convertToGenericDto(fakeStoreProducts);
         return products;
     }
+
+    @Override
+    public GenericProductDto updateProductById(GenericProductDto product, Long id) {
+        HttpEntity<GenericProductDto> requestEntity = new HttpEntity<>(product);
+
+        ResponseEntity<FakeStoreProductDto> response = restTemplate.exchange(
+                updateProductRequestURL,
+                HttpMethod.PUT,
+                requestEntity,
+                FakeStoreProductDto.class,
+                id
+        );
+
+        return mapToGenericDto(response.getBody());
+    }
+
     private List<GenericProductDto> convertToGenericDto(List<FakeStoreProductDto> fakeStoreProducts){
         return fakeStoreProducts.stream()
                 .map(this::mapToGenericDto)
