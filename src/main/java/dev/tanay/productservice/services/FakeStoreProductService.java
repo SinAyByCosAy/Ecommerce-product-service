@@ -22,6 +22,7 @@ public class FakeStoreProductService implements ProductService{
     private String createProductRequestURL = "https://fakestoreapi.com/products";
     private String getAllProductsURL = "https://fakestoreapi.com/products";
     private String updateProductRequestURL = "https://fakestoreapi.com/products/{id}";
+    private String deleteProductRequestURL = "https://fakestoreapi.com/products/{id}";
     public FakeStoreProductService(RestTemplateBuilder restTemplateBuilder){
         restTemplate = restTemplateBuilder.build();
     }
@@ -83,7 +84,14 @@ public class FakeStoreProductService implements ProductService{
 
     @Override
     public GenericProductDto deleteProductById(Long id) {
-        return null;
+        ResponseEntity<FakeStoreProductDto> respone = restTemplate.exchange(
+                deleteProductRequestURL,
+                HttpMethod.DELETE,
+                null,
+                FakeStoreProductDto.class,
+                id
+        );
+        return mapToGenericDto(respone.getBody());
     }
 
     private List<GenericProductDto> convertToGenericDto(List<FakeStoreProductDto> fakeStoreProducts){
