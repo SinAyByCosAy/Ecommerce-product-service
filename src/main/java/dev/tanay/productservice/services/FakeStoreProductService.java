@@ -2,7 +2,6 @@ package dev.tanay.productservice.services;
 
 import dev.tanay.productservice.dtos.FakeStoreProductDto;
 import dev.tanay.productservice.dtos.GenericProductDto;
-import dev.tanay.productservice.models.Product;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
@@ -45,20 +44,16 @@ public class FakeStoreProductService implements ProductService{
     @Override
     public GenericProductDto getProductById(Long id) {
 //        RestTemplate restTemplate = restTemplateBuilder.build();
-        ResponseEntity<FakeStoreProductDto> response =
-                restTemplate.getForEntity(getProductRequestURL, FakeStoreProductDto.class, id);
-
-        FakeStoreProductDto fakeStoreProductDto = response.getBody();
-//        FakeStoreProductDto fakeStoreProductDto = restTemplate.getForObject(getProductRequestURL, FakeStoreProductDto.class, id);
-        GenericProductDto product = new GenericProductDto();
-
-        product.setId(fakeStoreProductDto.getId());
-        product.setImage(fakeStoreProductDto.getImage());
-        product.setDescription(fakeStoreProductDto.getDescription());
-        product.setTitle(fakeStoreProductDto.getTitle());
-        product.setPrice(fakeStoreProductDto.getPrice());
-        product.setCategory(fakeStoreProductDto.getCategory());
-        return product;
+//        ResponseEntity<FakeStoreProductDto> response =
+//                restTemplate.getForEntity(getProductRequestURL, FakeStoreProductDto.class, id);
+        ResponseEntity<FakeStoreProductDto> response = restTemplate.exchange(
+                getProductRequestURL,
+                HttpMethod.GET,
+                null,
+                FakeStoreProductDto.class,
+                id
+        );
+        return mapToGenericDto(response.getBody());
     }
 
     @Override
@@ -85,7 +80,6 @@ public class FakeStoreProductService implements ProductService{
                 FakeStoreProductDto.class,
                 id
         );
-
         return mapToGenericDto(response.getBody());
     }
 
