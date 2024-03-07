@@ -52,7 +52,7 @@ public class ProductController {
     }
 
     @DeleteMapping("{id}")
-    public void deleteProductById(@PathVariable Long id){
+    public GenericProductDto deleteProductById(@PathVariable Long id){
         return productService.deleteProductById(id);
     }
 

@@ -81,6 +81,11 @@ public class FakeStoreProductService implements ProductService{
         return mapToGenericDto(response.getBody());
     }
 
+    @Override
+    public GenericProductDto deleteProductById(Long id) {
+        return null;
+    }
+
     private List<GenericProductDto> convertToGenericDto(List<FakeStoreProductDto> fakeStoreProducts){
         return fakeStoreProducts.stream()
                 .map(this::mapToGenericDto)
