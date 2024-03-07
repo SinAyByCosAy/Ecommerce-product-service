@@ -29,10 +29,17 @@ public class FakeStoreProductService implements ProductService{
 
     @Override
     public GenericProductDto createProduct(GenericProductDto product) {
-        ResponseEntity<GenericProductDto> response = restTemplate.postForEntity(
-                createProductRequestURL, product, GenericProductDto.class
+//        ResponseEntity<GenericProductDto> response = restTemplate.postForEntity(
+//                createProductRequestURL, product, GenericProductDto.class
+//        );
+        HttpEntity<GenericProductDto> requestEntity = new HttpEntity<>(product);
+        ResponseEntity<FakeStoreProductDto> response = restTemplate.exchange(
+                createProductRequestURL,
+                HttpMethod.POST,
+                requestEntity,
+                FakeStoreProductDto.class
         );
-        return response.getBody();
+        return mapToGenericDto(response.getBody());
     }
 
     @Override
