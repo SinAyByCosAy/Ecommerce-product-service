@@ -48,7 +48,7 @@ public class ProductController {
 
     @PutMapping("{id}")
     public GenericProductDto updateProductById(@RequestBody GenericProductDto product, @PathVariable Long id){
-        return updateProductById(product, id);
+        return productService.updateProductById(product, id);
     }
     @DeleteMapping("{id}")
     public void deleteProductById(){
