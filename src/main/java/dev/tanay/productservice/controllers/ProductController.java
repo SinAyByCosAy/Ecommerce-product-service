@@ -22,25 +22,23 @@ public class ProductController {
         this.productService = productService;
     }
 
+//Setter Injection
 //    @Autowired
 //    void setProductService(ProductService productService){
 //        this.productService = productService;
 //    }
+
+// localhost:8080//products/id
+// localhost:8080//products/123
+
     @GetMapping
     public List<GenericProductDto> getAllProducts(){
         return productService.getAllProducts();
     }
 
-    // localhost:8080//products/id
-    // localhost:8080//products/123
     @GetMapping("{id}")
     public GenericProductDto getProductById(@PathVariable("id") Long id){
         return productService.getProductById(id);
-    }
-
-    @DeleteMapping("{id}")
-    public void deleteProductById(){
-
     }
 
     @PostMapping
@@ -48,8 +46,12 @@ public class ProductController {
         return productService.createProduct(product);
     }
 
-    @PutMapping
-    public void updateProductById(){
+    @PutMapping("{id}")
+    public GenericProductDto updateProductById(@RequestBody GenericProductDto product, @PathVariable Long id){
+        return updateProductById(product, id);
+    }
+    @DeleteMapping("{id}")
+    public void deleteProductById(){
 
     }
 
