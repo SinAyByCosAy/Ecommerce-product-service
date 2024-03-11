@@ -17,11 +17,8 @@ import java.util.stream.Collectors;
 public class FakeStoreProductService implements ProductService{
 
     private RestTemplate restTemplate;
-    private String getProductRequestURL = "https://fakestoreapi.com/products/{id}";
-    private String createProductRequestURL = "https://fakestoreapi.com/products";
-    private String getAllProductsURL = "https://fakestoreapi.com/products";
-    private String updateProductRequestURL = "https://fakestoreapi.com/products/{id}";
-    private String deleteProductRequestURL = "https://fakestoreapi.com/products/{id}";
+    private String baseProductRequestURL = "https://fakestoreapi.com/products";
+    private String specificProductRequestURL = "https://fakestoreapi.com/products/{id}";
     public FakeStoreProductService(RestTemplateBuilder restTemplateBuilder){
         restTemplate = restTemplateBuilder.build();
     }
@@ -33,7 +30,7 @@ public class FakeStoreProductService implements ProductService{
 //        );
         HttpEntity<GenericProductDto> requestEntity = new HttpEntity<>(product);
         ResponseEntity<FakeStoreProductDto> response = restTemplate.exchange(
-                createProductRequestURL,
+                baseProductRequestURL,
                 HttpMethod.POST,
                 requestEntity,
                 FakeStoreProductDto.class
@@ -47,7 +44,7 @@ public class FakeStoreProductService implements ProductService{
 //        ResponseEntity<FakeStoreProductDto> response =
 //                restTemplate.getForEntity(getProductRequestURL, FakeStoreProductDto.class, id);
         ResponseEntity<FakeStoreProductDto> response = restTemplate.exchange(
-                getProductRequestURL,
+                specificProductRequestURL,
                 HttpMethod.GET,
                 null,
                 FakeStoreProductDto.class,
@@ -59,7 +56,7 @@ public class FakeStoreProductService implements ProductService{
     @Override
     public List<GenericProductDto> getAllProducts() {
         ResponseEntity<List<FakeStoreProductDto>> response = restTemplate.exchange(
-                getAllProductsURL,
+                baseProductRequestURL,
                 HttpMethod.GET,
                 null,
                 new ParameterizedTypeReference<List<FakeStoreProductDto>>() {}
@@ -74,7 +71,7 @@ public class FakeStoreProductService implements ProductService{
         HttpEntity<GenericProductDto> requestEntity = new HttpEntity<>(product);
 
         ResponseEntity<FakeStoreProductDto> response = restTemplate.exchange(
-                updateProductRequestURL,
+                specificProductRequestURL,
                 HttpMethod.PUT,
                 requestEntity,
                 FakeStoreProductDto.class,
@@ -86,7 +83,7 @@ public class FakeStoreProductService implements ProductService{
     @Override
     public GenericProductDto deleteProductById(Long id) {
         ResponseEntity<FakeStoreProductDto> respone = restTemplate.exchange(
-                deleteProductRequestURL,
+                specificProductRequestURL,
                 HttpMethod.DELETE,
                 null,
                 FakeStoreProductDto.class,
