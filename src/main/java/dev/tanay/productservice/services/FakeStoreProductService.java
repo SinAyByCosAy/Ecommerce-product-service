@@ -50,6 +50,10 @@ public class FakeStoreProductService implements ProductService{
                 FakeStoreProductDto.class,
                 id
         );
+
+        if(response.getBody() == null){
+            throw new NotFoundException("Product with id: "+id+" doesn't exist.");
+        }
         return mapToGenericDto(response.getBody());
     }
 
