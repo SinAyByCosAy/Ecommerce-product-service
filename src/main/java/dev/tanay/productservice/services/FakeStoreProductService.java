@@ -2,6 +2,7 @@ package dev.tanay.productservice.services;
 
 import dev.tanay.productservice.dtos.FakeStoreProductDto;
 import dev.tanay.productservice.dtos.GenericProductDto;
+import dev.tanay.productservice.exceptions.NotFoundException;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
@@ -39,7 +40,7 @@ public class FakeStoreProductService implements ProductService{
     }
 
     @Override
-    public GenericProductDto getProductById(Long id) {
+    public GenericProductDto getProductById(Long id) throws NotFoundException {
 //        RestTemplate restTemplate = restTemplateBuilder.build();
 //        ResponseEntity<FakeStoreProductDto> response =
 //                restTemplate.getForEntity(getProductRequestURL, FakeStoreProductDto.class, id);

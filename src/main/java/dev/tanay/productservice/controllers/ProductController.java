@@ -1,6 +1,7 @@
 package dev.tanay.productservice.controllers;
 
 import dev.tanay.productservice.dtos.GenericProductDto;
+import dev.tanay.productservice.exceptions.NotFoundException;
 import dev.tanay.productservice.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -37,7 +38,7 @@ public class ProductController {
     }
 
     @GetMapping("{id}")
-    public GenericProductDto getProductById(@PathVariable("id") Long id){
+    public GenericProductDto getProductById(@PathVariable("id") Long id) throws NotFoundException {
         return productService.getProductById(id);
     }
 
@@ -54,6 +55,11 @@ public class ProductController {
     @DeleteMapping("{id}")
     public GenericProductDto deleteProductById(@PathVariable Long id){
         return productService.deleteProductById(id);
+    }
+
+    @ExceptionHandler(NotFoundException.class)
+    public void handleNotFoundException(){
+        System.out.println("Not found exception caught!");
     }
 
 }
