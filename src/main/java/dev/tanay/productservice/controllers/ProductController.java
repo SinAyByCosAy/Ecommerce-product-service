@@ -1,10 +1,13 @@
 package dev.tanay.productservice.controllers;
 
+import dev.tanay.productservice.dtos.ExceptionDto;
 import dev.tanay.productservice.dtos.GenericProductDto;
 import dev.tanay.productservice.exceptions.NotFoundException;
 import dev.tanay.productservice.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -58,8 +61,12 @@ public class ProductController {
     }
 
     @ExceptionHandler(NotFoundException.class)
-    public void handleNotFoundException(){
-        System.out.println("Not found exception caught!");
+    public ResponseEntity<ExceptionDto> handleNotFoundException(NotFoundException notFoundException){
+        return new ResponseEntity<>(
+                new ExceptionDto(
+                HttpStatus.NOT_FOUND, notFoundException.getMessage()),
+                HttpStatus.NOT_FOUND
+        );
     }
 
 }
