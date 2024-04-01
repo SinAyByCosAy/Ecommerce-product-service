@@ -1,4 +1,4 @@
-package dev.tanay.productservice.dtos;
+package dev.tanay.productservice.thirdpartyclients.productservice.fakestore;
 
 import lombok.Getter;
 import lombok.Setter;
