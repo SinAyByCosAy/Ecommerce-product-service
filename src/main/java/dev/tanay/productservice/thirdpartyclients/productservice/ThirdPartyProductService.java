@@ -6,7 +6,7 @@ import dev.tanay.productservice.exceptions.NotFoundException;
 import java.util.List;
 
 public interface ThirdPartyProductService {
-    GenericProductDto getProductById(Long id) throws NotFoundException;
+    GenericProductDto getProductById(Long id);
     GenericProductDto createProduct(GenericProductDto product);
     List<GenericProductDto> getAllProducts();
     GenericProductDto updateProductById(GenericProductDto product, Long id);
