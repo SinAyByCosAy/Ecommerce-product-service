@@ -22,7 +22,7 @@ public class ProductController {
 //    @Autowired
     private ProductService productService;
 
-    public ProductController(@Qualifier("FakeStoreProductService") ProductService productService){
+    public ProductController(ProductService productService){
         this.productService = productService;
     }
 
