@@ -1,6 +1,7 @@
 package dev.tanay.productservice.thirdpartyclients.productservice.fakestore;
 
 import dev.tanay.productservice.dtos.GenericProductDto;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
@@ -16,8 +17,12 @@ import java.util.List;
 public class FakeStoreProductServiceClient {
 
     private RestTemplate restTemplate;
-    private String baseProductRequestURL = "https://fakestoreapi.com/products";
-    private String specificProductRequestURL = "https://fakestoreapi.com/products/{id}";
+
+    @Value("${fakestore.api.url}${fakestore.api.paths.products}")
+    private String baseProductRequestURL;
+
+    @Value("${fakestore.api.url}${fakestore.api.paths.products}/{id}")
+    private String specificProductRequestURL;
     public FakeStoreProductServiceClient(RestTemplateBuilder restTemplateBuilder){
         restTemplate = restTemplateBuilder.build();
     }
