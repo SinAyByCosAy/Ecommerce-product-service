@@ -16,7 +16,7 @@ import java.util.List;
 //For spring to know that this class will have a lot of endpoints, we'll annotate it with REST Controller
 //spring injects it's power through annotations
 @RestController
-@RequestMapping("/products")
+@RequestMapping("${app.base.url}")
 public class ProductController {
 
 //    @Autowired
