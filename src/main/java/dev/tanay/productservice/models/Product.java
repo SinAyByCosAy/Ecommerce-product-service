@@ -1,10 +1,8 @@
 package dev.tanay.productservice.models;
 
-import lombok.Getter;
-import lombok.Setter;
+import jakarta.persistence.Entity;
 
-@Getter
-@Setter
+@Entity
 public class Product extends BaseModel{
     private String title;
     private String description;
