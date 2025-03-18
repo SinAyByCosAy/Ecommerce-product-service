@@ -1,13 +1,11 @@
-package dev.tanay.productservice.services;
+package dev.tanay.productservice.thirdpartyclients.productservice.adapters;
 
 import dev.tanay.productservice.dtos.GenericProductDto;
 import dev.tanay.productservice.exceptions.NotFoundException;
-import dev.tanay.productservice.models.Product;
 
 import java.util.List;
 
-public interface ProductService {
-
+public interface ThirdPartyProductServiceAdapter {
     List<GenericProductDto> getAllProducts();
     GenericProductDto getProductById(Long id)throws NotFoundException;
     GenericProductDto createProduct(GenericProductDto product);
