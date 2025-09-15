@@ -1,4 +1,4 @@
-package dev.tanay.productservice.thirdpartyclients.productservice.adapters;
+package dev.tanay.productservice.thirdpartyclients.adapters;
 
 import dev.tanay.productservice.dtos.GenericProductDto;
 import dev.tanay.productservice.exceptions.NotFoundException;

@@ -1,15 +1,12 @@
 package dev.tanay.productservice.services;
 
-import dev.tanay.productservice.thirdpartyclients.productservice.adapters.ThirdPartyProductServiceAdapter;
-import dev.tanay.productservice.thirdpartyclients.productservice.dtos.FakeStoreProductDto;
+import dev.tanay.productservice.thirdpartyclients.adapters.ThirdPartyProductServiceAdapter;
 import dev.tanay.productservice.dtos.GenericProductDto;
 import dev.tanay.productservice.exceptions.NotFoundException;
-import dev.tanay.productservice.thirdpartyclients.productservice.clients.fakestore.FakeStoreProductServiceClient;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Primary
 @Service

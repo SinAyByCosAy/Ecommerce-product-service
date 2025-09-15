@@ -1,4 +1,4 @@
-package dev.tanay.productservice.thirdpartyclients.productservice.dtos;
+package dev.tanay.productservice.thirdpartyclients.dtos;
 
 import lombok.Getter;
 import lombok.Setter;

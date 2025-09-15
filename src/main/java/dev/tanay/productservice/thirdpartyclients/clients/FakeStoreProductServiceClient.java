@@ -1,8 +1,8 @@
-package dev.tanay.productservice.thirdpartyclients.productservice.clients.fakestore;
+package dev.tanay.productservice.thirdpartyclients.clients;
 
 import dev.tanay.productservice.dtos.GenericProductDto;
 import dev.tanay.productservice.exceptions.NotFoundException;
-import dev.tanay.productservice.thirdpartyclients.productservice.dtos.FakeStoreProductDto;
+import dev.tanay.productservice.thirdpartyclients.dtos.FakeStoreProductDto;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.core.ParameterizedTypeReference;

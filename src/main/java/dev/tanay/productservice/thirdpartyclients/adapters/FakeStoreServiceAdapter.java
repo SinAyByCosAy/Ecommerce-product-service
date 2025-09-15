@@ -1,10 +1,9 @@
-package dev.tanay.productservice.thirdpartyclients.productservice.adapters.fakestore;
+package dev.tanay.productservice.thirdpartyclients.adapters;
 
 import dev.tanay.productservice.dtos.GenericProductDto;
 import dev.tanay.productservice.exceptions.NotFoundException;
-import dev.tanay.productservice.thirdpartyclients.productservice.adapters.ThirdPartyProductServiceAdapter;
-import dev.tanay.productservice.thirdpartyclients.productservice.clients.fakestore.FakeStoreProductServiceClient;
-import dev.tanay.productservice.thirdpartyclients.productservice.dtos.FakeStoreProductDto;
+import dev.tanay.productservice.thirdpartyclients.clients.FakeStoreProductServiceClient;
+import dev.tanay.productservice.thirdpartyclients.dtos.FakeStoreProductDto;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
