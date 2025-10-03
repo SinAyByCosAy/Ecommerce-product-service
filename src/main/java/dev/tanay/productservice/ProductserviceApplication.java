@@ -10,6 +10,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import java.util.List;
 import java.util.UUID;
 
 @SpringBootApplication
@@ -47,6 +48,9 @@ public class ProductserviceApplication {
             String title2 = "book2";
             double price = 22.2;
             System.out.println(productRepository.findByTitleAndPrice_Price(title2, price).getDescription());
+
+            List<Product> products = productRepository.findAllByTitle("book2");
+            for(Product p : products) System.out.println("native find : " + p.getImage());
         };
     }
 }
