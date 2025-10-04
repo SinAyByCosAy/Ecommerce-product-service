@@ -15,6 +15,6 @@ import java.util.function.Function;
 public interface ProductRepository extends JpaRepository<Product, UUID> {
     Product findByTitle(String title);
     Product findByTitleAndPrice_Price(String title, double price);
-    @Query(value = "select * from product where title = :name", nativeQuery = true)
+    @Query(value = CustomQueries.FIND_ALL_BY_TITLE, nativeQuery = true)
     List<Product> findAllByTitle(String name);
 }
