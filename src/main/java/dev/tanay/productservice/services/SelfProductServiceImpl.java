@@ -7,6 +7,7 @@ import dev.tanay.productservice.repositories.ProductRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service("SelfProductServiceImpl")
 public class SelfProductServiceImpl implements ProductService{
@@ -15,23 +16,39 @@ public class SelfProductServiceImpl implements ProductService{
         this.productRepository = productRepository;
     }
     @Override
-    List<GenericProductDto> getAllProducts(){
-
+    public List<GenericProductDto> getAllProducts(){
+        List<Product> products = productRepository.findAll();
+        return convertToGenericDto(products);
     }
     @Override
-    GenericProductDto getProductById(Long id) throws NotFoundException{
-
+    public GenericProductDto getProductById(Long id) throws NotFoundException{
+        return new GenericProductDto();
     }
     @Override
-    GenericProductDto createProduct(GenericProductDto product){
-
+    public GenericProductDto createProduct(GenericProductDto product){
+        return new GenericProductDto();
     }
     @Override
-    GenericProductDto deleteProduct(Long id){
-
+    public GenericProductDto deleteProduct(Long id){
+        return new GenericProductDto();
     }
     @Override
-    GenericProductDto updateProduct(GenericProductDto product, Long id){
-
+    public GenericProductDto updateProduct(GenericProductDto product, Long id){
+        return new GenericProductDto();
+    }
+    private List<GenericProductDto> convertToGenericDto(List<Product> productList){
+        return productList.stream()
+                .map(this::mapToGenericDto)
+                .collect(Collectors.toList());
+    }
+    private GenericProductDto mapToGenericDto(Product product){
+        GenericProductDto genericProduct = new GenericProductDto();
+        genericProduct.setId(product.getUuid().getMostSignificantBits()); //converting UUID to long for now due to the structure of GenericProductDto
+        genericProduct.setTitle(product.getTitle());
+        genericProduct.setPrice(product.getPrice().getPrice());
+        genericProduct.setImage(product.getImage());
+        genericProduct.setDescription(product.getDescription());
+        genericProduct.setCategory(product.getCategory().getName());
+        return genericProduct;
     }
 }

@@ -38,19 +38,19 @@ public class ProductserviceApplication {
 //            productRepository.save(product);
 
             //replace the UUID with the one in the DB
-            Category category1 = categoryRepository.findById(UUID.fromString("125b5f4f-8c12-4bb7-80ce-b208b924b24e")).get();
-            System.out.println(category1.getName());
-            for(Product prod : category1.getProducts()) System.out.println(prod.getTitle());
-
-            String title = "book1";
-            System.out.println(productRepository.findByTitle(title).getTitle());
-
-            String title2 = "book2";
-            double price = 22.2;
-            System.out.println(productRepository.findByTitleAndPrice_Price(title2, price).getDescription());
-
-            List<Product> products = productRepository.findAllByTitle("book2");
-            for(Product p : products) System.out.println("native find : " + p.getImage());
+//            Category category1 = categoryRepository.findById(UUID.fromString("125b5f4f-8c12-4bb7-80ce-b208b924b24e")).get();
+//            System.out.println(category1.getName());
+//            for(Product prod : category1.getProducts()) System.out.println(prod.getTitle());
+//
+//            String title = "book1";
+//            System.out.println(productRepository.findByTitle(title).getTitle());
+//
+//            String title2 = "book2";
+//            double price = 22.2;
+//            System.out.println(productRepository.findByTitleAndPrice_Price(title2, price).getDescription());
+//
+//            List<Product> products = productRepository.findAllByTitle("book2");
+//            for(Product p : products) System.out.println("native find : " + p.getImage());
         };
     }
 }

@@ -14,4 +14,5 @@ public interface ProductRepository extends JpaRepository<Product, UUID> {
     Product findByTitleAndPrice_Price(String title, double price);
     @Query(CustomQueries.FIND_ALL_BY_TITLE)
     List<Product> findAllByTitle(String name);
+    List<Product> findAll();
 }

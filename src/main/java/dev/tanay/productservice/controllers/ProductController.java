@@ -3,6 +3,7 @@ package dev.tanay.productservice.controllers;
 import dev.tanay.productservice.dtos.GenericProductDto;
 import dev.tanay.productservice.exceptions.NotFoundException;
 import dev.tanay.productservice.services.ProductService;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +18,7 @@ import java.util.List;
 public class ProductController {
 
     private ProductService productService;
-    public ProductController(ProductService productService){
+    public ProductController(@Qualifier("SelfProductServiceImpl") ProductService productService){
         this.productService = productService;
     }
     @GetMapping
