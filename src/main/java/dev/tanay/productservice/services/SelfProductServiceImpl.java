@@ -54,7 +54,12 @@ public class SelfProductServiceImpl implements ProductService{
     }
     @Override
     public GenericProductDto deleteProduct(Long id){
-        return new GenericProductDto();
+        //by default delete function returns void, therefore to return entity after deletion, we first find it using id so that we have the object
+        //and then delete it. JPA query function otherwise would be: void deleteById(Long id).
+        Product product = productRepository.findById(id)
+                .orElse(null);
+        productRepository.delete(product);
+        return mapToGenericDto(product);
     }
     @Override
     public GenericProductDto updateProduct(GenericProductDto product, Long id){

@@ -10,11 +10,12 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Repository
-public interface ProductRepository extends JpaRepository<Product, UUID> {
+public interface ProductRepository extends JpaRepository<Product, Long> {
     Product findByTitle(String title);
     Product findByTitleAndPrice_Price(String title, double price);
     @Query(CustomQueries.FIND_ALL_BY_TITLE)
     List<Product> findAllByTitle(String name);
     List<Product> findAll();
     Optional<Product> findById(Long id);
+    void deleteById(Long id);
 }
