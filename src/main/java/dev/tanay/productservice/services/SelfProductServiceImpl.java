@@ -46,7 +46,7 @@ public class SelfProductServiceImpl implements ProductService{
                 });
         newProduct.setCategory(category);
         productRepository.save(newProduct); //new uuid will get generated here while inserting since it was null
-        product.setUuid(newProduct.getUuid()); //in actual projects, we should create a separate response dto
+        product.setId(newProduct.getId()); //in actual projects, we should create a separate response dto
         //it should be separate as we might not want all the data to be sent back
         return product;
     }
@@ -65,7 +65,7 @@ public class SelfProductServiceImpl implements ProductService{
     }
     private GenericProductDto mapToGenericDto(Product product){
         GenericProductDto genericProduct = new GenericProductDto();
-        genericProduct.setUuid(product.getUuid()); //converting UUID to long for now due to the structure of GenericProductDto
+        genericProduct.setId(product.getId()); //converting UUID to long for now due to the structure of GenericProductDto
         genericProduct.setTitle(product.getTitle());
         genericProduct.setPrice(product.getPrice().getPrice());
         genericProduct.setImage(product.getImage());
