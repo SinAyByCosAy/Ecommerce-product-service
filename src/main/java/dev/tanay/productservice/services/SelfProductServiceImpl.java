@@ -27,7 +27,9 @@ public class SelfProductServiceImpl implements ProductService{
     }
     @Override
     public GenericProductDto getProductById(Long id) throws NotFoundException{
-        return new GenericProductDto();
+        Product product = productRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Product with id: "+id+" not present"));
+        return mapToGenericDto(product);
     }
     @Override
     public GenericProductDto createProduct(GenericProductDto product){

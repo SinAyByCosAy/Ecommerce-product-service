@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Repository
@@ -15,4 +16,5 @@ public interface ProductRepository extends JpaRepository<Product, UUID> {
     @Query(CustomQueries.FIND_ALL_BY_TITLE)
     List<Product> findAllByTitle(String name);
     List<Product> findAll();
+    Optional<Product> findById(Long id);
 }
