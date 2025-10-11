@@ -15,5 +15,5 @@ import java.util.UUID;
 public class BaseModel {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private Long id; //changed UUID to Auto for Fakestore and DB implementation compatibility
 }
