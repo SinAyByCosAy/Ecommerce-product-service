@@ -34,6 +34,31 @@ public class SelfProductServiceImpl implements ProductService{
     @Override
     public GenericProductDto createProduct(GenericProductDto product){
         Product newProduct = new Product();
+        setProductProperties(newProduct, product);
+        productRepository.save(newProduct); //new uuid will get generated here while inserting since it was null
+        product.setId(newProduct.getId()); //in actual projects, we should create a separate response dto
+        //it should be separate as we might not want all the data to be sent back
+        return product;
+    }
+    @Override
+    public GenericProductDto deleteProduct(Long id){
+        //by default delete function returns void, therefore to return entity after deletion, we first find it using id so that we have the object
+        //and then delete it. JPA query function otherwise would be: void deleteById(Long id).
+        Product product = productRepository.findById(id)
+                .orElse(null); //should throw an error if I don't find the record
+        productRepository.delete(product);
+        return mapToGenericDto(product);
+    }
+    @Override
+    public GenericProductDto updateProduct(GenericProductDto product, Long id){
+        Product updateProduct = productRepository.findById(id)
+                .orElse(null); //throw an error if we don't find the record
+        setProductProperties(updateProduct, product);
+        productRepository.save(updateProduct);
+        product.setId(updateProduct.getId());
+        return product;
+    }
+    private void setProductProperties(Product newProduct, GenericProductDto product){
         newProduct.setTitle(product.getTitle());
         newProduct.setDescription(product.getDescription());
         newProduct.setImage(product.getImage());
@@ -47,23 +72,6 @@ public class SelfProductServiceImpl implements ProductService{
                     return newCategory;
                 });
         newProduct.setCategory(category);
-        productRepository.save(newProduct); //new uuid will get generated here while inserting since it was null
-        product.setId(newProduct.getId()); //in actual projects, we should create a separate response dto
-        //it should be separate as we might not want all the data to be sent back
-        return product;
-    }
-    @Override
-    public GenericProductDto deleteProduct(Long id){
-        //by default delete function returns void, therefore to return entity after deletion, we first find it using id so that we have the object
-        //and then delete it. JPA query function otherwise would be: void deleteById(Long id).
-        Product product = productRepository.findById(id)
-                .orElse(null);
-        productRepository.delete(product);
-        return mapToGenericDto(product);
-    }
-    @Override
-    public GenericProductDto updateProduct(GenericProductDto product, Long id){
-        return new GenericProductDto();
     }
     private List<GenericProductDto> convertToGenericDto(List<Product> productList){
         return productList.stream()
