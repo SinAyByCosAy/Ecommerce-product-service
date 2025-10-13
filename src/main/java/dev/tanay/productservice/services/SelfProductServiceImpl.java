@@ -7,6 +7,7 @@ import dev.tanay.productservice.models.Price;
 import dev.tanay.productservice.models.Product;
 import dev.tanay.productservice.repositories.CategoryRepository;
 import dev.tanay.productservice.repositories.ProductRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -50,11 +51,12 @@ public class SelfProductServiceImpl implements ProductService{
         return mapToGenericDto(product);
     }
     @Override
+    @Transactional//wraps the function into one transaction, auto commits the entities that were managed during this transaction
     public GenericProductDto updateProduct(GenericProductDto product, Long id){
         Product updateProduct = productRepository.findById(id)
                 .orElse(null); //throw an error if we don't find the record
         setProductProperties(updateProduct, product);
-        productRepository.save(updateProduct);
+//        productRepository.save(updateProduct);
         product.setId(updateProduct.getId());
         return product;
     }
