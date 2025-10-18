@@ -66,6 +66,17 @@ public class SelfProductServiceImpl implements ProductService{
         List<Category> categories = categoryRepository.findAll();//doesn't contain duplicates as we don't push duplicates
         for(Category c : categories) System.out.println(c.getName());
     }
+    @Transactional//keep categories and products in the same session
+    public void getProductsInCategory(Long id){
+        System.out.println("/getProductsInCategory/1");
+        Category category = categoryRepository.findById(id)
+                .orElse(null);
+        if(category == null) System.out.println("No category with id: "+id+" exists");
+        else{
+            List<Product> products = productRepository.findByCategoryId(category.getId());
+            for(Product p : products) System.out.println(p.getTitle());
+        }
+    }
     private void setProductProperties(Product newProduct, GenericProductDto product){
         newProduct.setTitle(product.getTitle());
         newProduct.setDescription(product.getDescription());

@@ -1,5 +1,6 @@
 package dev.tanay.productservice.repositories;
 
+import dev.tanay.productservice.models.Category;
 import dev.tanay.productservice.models.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -18,4 +19,5 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     List<Product> findAll();
     Optional<Product> findById(Long id);
     void deleteById(Long id);
+    List<Product> findByCategoryId(Long id);
 }

@@ -17,6 +17,7 @@ public class ProductserviceApplication {
     CommandLineRunner run(SelfProductServiceImpl selfProductService){
         return args -> {
             selfProductService.getAllCategories();
+            selfProductService.getProductsInCategory(1L);
         };
     }
 }
