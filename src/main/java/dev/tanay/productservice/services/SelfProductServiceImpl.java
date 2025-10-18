@@ -61,6 +61,11 @@ public class SelfProductServiceImpl implements ProductService{
         product.setId(updateProduct.getId());
         return product;
     }
+    public void getAllCategories(){
+        System.out.println("/getAllCategories");
+        List<Category> categories = categoryRepository.findAll();//doesn't contain duplicates as we don't push duplicates
+        for(Category c : categories) System.out.println(c.getName());
+    }
     private void setProductProperties(Product newProduct, GenericProductDto product){
         newProduct.setTitle(product.getTitle());
         newProduct.setDescription(product.getDescription());
