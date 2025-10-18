@@ -13,7 +13,7 @@ import java.util.List;
 @Setter
 public class Category extends BaseModel{
     private String name;
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "category")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "category")
     private List<Product> products;
     //this is the same relation being mapped by category attribute in the other(Product) class
 }
