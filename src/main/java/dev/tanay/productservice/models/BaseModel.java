@@ -14,6 +14,6 @@ import java.util.UUID;
 @MappedSuperclass
 public class BaseModel {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id; //changed UUID to Auto for Fakestore and DB implementation compatibility
 }
