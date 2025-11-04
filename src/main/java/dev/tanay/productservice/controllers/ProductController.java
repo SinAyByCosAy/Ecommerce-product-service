@@ -18,7 +18,7 @@ import java.util.List;
 public class ProductController {
 
     private ProductService productService;
-    public ProductController(@Qualifier("SelfProductServiceImpl") ProductService productService){
+    public ProductController(ProductService productService){
         this.productService = productService;
     }
     @GetMapping
@@ -26,7 +26,7 @@ public class ProductController {
         return productService.getAllProducts();
     }
     @GetMapping("{id}")
-    public GenericProductDto getProductsById(@PathVariable Long id)throws NotFoundException {
+    public GenericProductDto getProductById(@PathVariable Long id)throws NotFoundException {
         return productService.getProductById(id);
     }
     @PostMapping
