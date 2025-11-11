@@ -1,0 +1,60 @@
+package dev.tanay.productservice.controllers;
+
+import dev.tanay.productservice.dtos.GenericProductDto;
+import dev.tanay.productservice.services.ProductService;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.web.servlet.MockMvc;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.is;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+@WebMvcTest(ProductController.class)
+class ProductControllerTest {
+    @Autowired
+    private MockMvc mockMvc;
+    @MockBean(name = "FakeStoreProductService")
+    private ProductService productService;
+    @Nested
+    class GetProducts{
+        @Test //happy path
+        void testGetAllProducts_ReturnSuccess()throws Exception{
+            GenericProductDto product1 = getProduct(1L, "Iphone 17", "Phone", "Best Phone in town", 70000, "https://apple.com" );
+            GenericProductDto product2 = getProduct(2L, "S25 Ultra", "Phone", "Good phone", 80000, "https://samsung.com");
+            List<GenericProductDto> products = Arrays.asList(product1, product2);
+            when(productService.getAllProducts())
+                    .thenReturn(products);
+
+            mockMvc.perform(get("/products"))
+                    .andExpect(status().isOk())
+                    .andExpect(jsonPath("$", hasSize(2)))
+                    .andExpect(jsonPath("$[0].id", is(1)))
+                    .andExpect(jsonPath("$[0].title", is("Iphone 17")))
+                    .andExpect(jsonPath("$[1].category", is("Phone")))
+                    .andExpect(jsonPath("$[1].price", is(80000.0)));
+
+        }
+        GenericProductDto getProduct(Long id, String title, String category, String desc, double price, String image){
+            GenericProductDto product = new GenericProductDto();
+            product.setId(id);
+            product.setTitle(title);
+            product.setCategory(category);
+            product.setDescription(desc);
+            product.setPrice(price);
+            product.setImage(image);
+            return product;
+        }
+    }
+}
