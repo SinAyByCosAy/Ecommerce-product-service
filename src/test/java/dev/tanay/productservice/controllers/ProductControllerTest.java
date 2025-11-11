@@ -11,6 +11,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static org.hamcrest.Matchers.hasSize;
@@ -18,8 +19,7 @@ import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(ProductController.class)
 class ProductControllerTest {
@@ -45,6 +45,15 @@ class ProductControllerTest {
                     .andExpect(jsonPath("$[1].category", is("Phone")))
                     .andExpect(jsonPath("$[1].price", is(80000.0)));
 
+        }
+        @Test//Empty Path
+        void testGetAllProducts_ReturnEmptyList()throws Exception{
+            when(productService.getAllProducts())
+                    .thenReturn(Collections.emptyList());
+            mockMvc.perform(get("/products"))
+                    .andExpect(status().isOk())
+                    .andExpect(jsonPath("$", hasSize(0)))
+                    .andExpect(content().json("[]"));
         }
         GenericProductDto getProduct(Long id, String title, String category, String desc, double price, String image){
             GenericProductDto product = new GenericProductDto();
