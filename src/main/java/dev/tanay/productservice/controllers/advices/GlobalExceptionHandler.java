@@ -17,4 +17,13 @@ public class GlobalExceptionHandler {
                 HttpStatus.NOT_FOUND
         );
     }
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity<ExceptionDto> handleRuntimeException(RuntimeException ex){
+        return new ResponseEntity<>(
+                new ExceptionDto(
+                        HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage()
+                ),
+                HttpStatus.INTERNAL_SERVER_ERROR
+        );
+    }
 }

@@ -65,5 +65,13 @@ class ProductControllerTest {
             product.setImage(image);
             return product;
         }
+        @Test//Unhappy Path
+        void testGetAllProducts_ServiceThrowsError()throws Exception{
+            when(productService.getAllProducts())
+                    .thenThrow(new RuntimeException("DB connection failed"));
+            mockMvc.perform(get("/products"))
+                    .andExpect(status().isInternalServerError())
+                    .andExpect(jsonPath("$.message", is("DB connection failed")));
+        }
     }
 }
