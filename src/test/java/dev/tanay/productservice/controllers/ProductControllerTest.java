@@ -90,5 +90,14 @@ class ProductControllerTest {
                     .andExpect(jsonPath("$.id", is(10)))
                     .andExpect(jsonPath("$.title", is("Wilson Pro staff")));
         }
+        @Test
+        void testGetProductById_NotFound()throws Exception{
+            when(productService.getProductById(12L))
+                    .thenThrow(new NotFoundException("Product not found"));
+            mockMvc.perform(get("/products/12"))
+                    .andExpect(status().isNotFound())
+                    .andExpect(jsonPath("$.errorCode", is("NOT_FOUND")))
+                    .andExpect(jsonPath("$.message", is("Product not found")));
+        }
     }
 }
