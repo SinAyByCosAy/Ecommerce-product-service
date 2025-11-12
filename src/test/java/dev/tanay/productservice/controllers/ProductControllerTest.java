@@ -1,6 +1,7 @@
 package dev.tanay.productservice.controllers;
 
 import dev.tanay.productservice.dtos.GenericProductDto;
+import dev.tanay.productservice.exceptions.NotFoundException;
 import dev.tanay.productservice.services.ProductService;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -17,6 +18,7 @@ import java.util.List;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -72,6 +74,21 @@ class ProductControllerTest {
             mockMvc.perform(get("/products"))
                     .andExpect(status().isInternalServerError())
                     .andExpect(jsonPath("$.message", is("DB connection failed")));
+        }
+    }
+    @Nested
+    class GetProductsById{
+        @Test
+        void testGetProductById_ReturnSuccess()throws Exception {
+            GenericProductDto product = new GenericProductDto();
+            product.setId(10L);
+            product.setTitle("Wilson Pro staff");
+            when(productService.getProductById(10L))
+                    .thenReturn(product);
+            mockMvc.perform(get("/products/10"))
+                    .andExpect(status().isOk())
+                    .andExpect(jsonPath("$.id", is(10)))
+                    .andExpect(jsonPath("$.title", is("Wilson Pro staff")));
         }
     }
 }
