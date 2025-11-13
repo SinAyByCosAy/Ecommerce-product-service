@@ -147,12 +147,12 @@ class ProductControllerTest {
             GenericProductDto product = new GenericProductDto();
             product.setTitle("New Product");
             when(productService.updateProduct(any(GenericProductDto.class), any()))
-                    .thenThrow(new RuntimeException("Product not found"));
+                    .thenThrow(new NotFoundException("Product not found"));
             mockMvc.perform(put("/products/69")
                     .contentType(MediaType.APPLICATION_JSON)
                     .content(objectMapper.writeValueAsString(product)))
-                    .andExpect(status().isInternalServerError())
-                    .andExpect(jsonPath("$.errorCode", is("INTERNAL_SERVER_ERROR")))
+                    .andExpect(status().isNotFound())
+                    .andExpect(jsonPath("$.errorCode", is("NOT_FOUND")))
                     .andExpect(jsonPath("$.message", is("Product not found")));
         }
     }
