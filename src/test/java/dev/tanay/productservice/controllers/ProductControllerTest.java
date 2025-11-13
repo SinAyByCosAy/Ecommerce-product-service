@@ -1,5 +1,6 @@
 package dev.tanay.productservice.controllers;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import dev.tanay.productservice.dtos.GenericProductDto;
 import dev.tanay.productservice.exceptions.NotFoundException;
 import dev.tanay.productservice.services.ProductService;
@@ -8,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.ArrayList;
@@ -21,6 +23,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(ProductController.class)
@@ -29,6 +32,8 @@ class ProductControllerTest {
     private MockMvc mockMvc;
     @MockBean(name = "FakeStoreProductService")
     private ProductService productService;
+    @Autowired
+    private ObjectMapper objectMapper;
     @Nested
     class GetProducts{
         @Test //happy path
@@ -77,7 +82,7 @@ class ProductControllerTest {
         }
     }
     @Nested
-    class GetProductsById{
+    class GetProductById{
         @Test
         void testGetProductById_ReturnSuccess()throws Exception {
             GenericProductDto product = new GenericProductDto();
@@ -98,6 +103,27 @@ class ProductControllerTest {
                     .andExpect(status().isNotFound())
                     .andExpect(jsonPath("$.errorCode", is("NOT_FOUND")))
                     .andExpect(jsonPath("$.message", is("Product not found")));
+        }
+    }
+    @Nested
+    class CreateProduct{
+        @Test
+        void testCreateProduct_ReturnSuccess() throws Exception{
+            GenericProductDto req = new GenericProductDto();
+            req.setTitle("Boom shankar");
+            req.setCategory("Speakers");
+            GenericProductDto res = new GenericProductDto();
+            res.setId(1L);
+            res.setTitle("Boom shankar");
+            res.setCategory("Speakers");
+            when(productService.createProduct(any()))
+                    .thenReturn(res);
+            mockMvc.perform(post("/products")
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content(objectMapper.writeValueAsString(req))
+                    )
+                    .andExpect(status().isOk())
+                    .andExpect(content().string(objectMapper.writeValueAsString(res)));
         }
     }
 }
