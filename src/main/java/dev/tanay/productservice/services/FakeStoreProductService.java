@@ -31,12 +31,12 @@ public class FakeStoreProductService implements ProductService{
     }
 
     @Override
-    public GenericProductDto deleteProduct(Long id){
+    public GenericProductDto deleteProduct(Long id)throws NotFoundException{
         return thirdPartyProductServiceAdapter.deleteProduct(id);
     }
 
     @Override
-    public GenericProductDto updateProduct(GenericProductDto product, Long id){
+    public GenericProductDto updateProduct(GenericProductDto product, Long id)throws NotFoundException{
         return thirdPartyProductServiceAdapter.updateProduct(product, id);
     }
 }

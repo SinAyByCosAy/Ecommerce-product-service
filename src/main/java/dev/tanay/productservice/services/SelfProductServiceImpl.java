@@ -45,7 +45,7 @@ public class SelfProductServiceImpl implements ProductService{
     }
     @Override
     @Transactional
-    public GenericProductDto deleteProduct(Long id){
+    public GenericProductDto deleteProduct(Long id)throws NotFoundException{
         //by default delete function returns void, therefore to return entity after deletion, we first find it using id so that we have the object
         //and then delete it. JPA query function otherwise would be: void deleteById(Long id).
         Product product = productRepository.findById(id)
@@ -55,7 +55,7 @@ public class SelfProductServiceImpl implements ProductService{
     }
     @Override
     @Transactional//wraps the function into one transaction, auto commits the entities that were managed during this transaction
-    public GenericProductDto updateProduct(GenericProductDto product, Long id){
+    public GenericProductDto updateProduct(GenericProductDto product, Long id)throws NotFoundException{
         Product updateProduct = productRepository.findById(id)
                 .orElse(null); //throw an error if we don't find the record
         setProductProperties(updateProduct, product);
