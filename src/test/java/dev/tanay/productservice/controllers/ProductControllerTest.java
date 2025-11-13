@@ -142,7 +142,7 @@ class ProductControllerTest {
                     .andExpect(status().isOk())
                     .andExpect(content().string(objectMapper.writeValueAsString(product))); //better to use jsonpath matcher to compare specified fields
         }
-        @Test
+        @Test//unhappy case
         void testUpdateProduct_NotFound() throws Exception{
             GenericProductDto product = new GenericProductDto();
             product.setTitle("New Product");
