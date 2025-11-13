@@ -21,9 +21,9 @@ import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(ProductController.class)
@@ -107,7 +107,7 @@ class ProductControllerTest {
     }
     @Nested
     class CreateProduct{
-        @Test
+        @Test//happy case
         void testCreateProduct_ReturnSuccess() throws Exception{
             GenericProductDto req = new GenericProductDto();
             req.setTitle("Boom shankar");
@@ -124,6 +124,23 @@ class ProductControllerTest {
                     )
                     .andExpect(status().isOk())
                     .andExpect(content().string(objectMapper.writeValueAsString(res)));
+        }
+        //unhappy case would be: unable to create product due to DB/API connection failure
+        //which should result in a runtime exception like above
+    }
+    @Nested
+    class UpdateProduct{
+        @Test//happy case
+        void testUpdateProduct_ReturnSuccess() throws Exception{
+            GenericProductDto product = new GenericProductDto();
+            product.setTitle("New product");
+            when(productService.updateProduct(any(GenericProductDto.class), any()))
+                    .thenReturn(product);
+            mockMvc.perform(put("/products/69")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(objectMapper.writeValueAsString(product)))
+                    .andExpect(status().isOk())
+                    .andExpect(content().string(objectMapper.writeValueAsString(product)));
         }
     }
 }
