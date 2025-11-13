@@ -180,3 +180,29 @@ class ProductControllerTest {
         }
     }
 }
+
+//More tests that can be performed
+//
+//Validation Errors (400 Bad Request):
+//
+//Action:
+//Add validation annotations (like @NotBlank) to your GenericProductDto fields (e.g., title).
+//Add @Valid to your controller's createProduct method:
+//public GenericProductDto createProduct(@Valid @RequestBody GenericProductDto product)
+//
+//Test:
+//Write a test that POSTs a product with a null or empty title.
+//
+//Assert: mockMvc.perform(...) .andExpect(status().isBadRequest());
+//
+//Malformed JSON (400 Bad Request):
+//
+//Action:
+//No code change needed. Spring Boot does this for you.
+//
+//Test: Send a request with invalid JSON syntax.
+//
+//Assert: mockMvc.perform(post("/products")
+//    .contentType(MediaType.APPLICATION_JSON)
+//    .content("{\"title\": \"test\"")) (note the missing }))
+//        .andExpect(status().isBadRequest());
