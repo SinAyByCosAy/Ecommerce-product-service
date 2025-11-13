@@ -156,4 +156,18 @@ class ProductControllerTest {
                     .andExpect(jsonPath("$.message", is("Product not found")));
         }
     }
+    @Nested
+    class DeleteProduct{
+        @Test
+        void testDeleteProduct_ReturnSuccess() throws Exception{
+            GenericProductDto product = new GenericProductDto();
+            product.setId(69L);
+            product.setTitle("Books");
+            when(productService.deleteProduct(any(Long.class)))
+                    .thenReturn(product);
+            mockMvc.perform(delete("/products/69"))
+                    .andExpect(status().isNotFound())//getting back a response entity with status set as NOT FOUND
+                    .andExpect(jsonPath("$.title", is("Books")));
+        }
+    }
 }
