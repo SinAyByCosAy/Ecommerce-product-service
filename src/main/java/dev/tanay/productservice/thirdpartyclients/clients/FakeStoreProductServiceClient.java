@@ -43,7 +43,7 @@ public class FakeStoreProductServiceClient {
         return response.getBody();
     }
 
-    public FakeStoreProductDto getProductById(Long id)throws NotFoundException {
+    public FakeStoreProductDto getProductById(Long id){
         ResponseEntity<FakeStoreProductDto> response = restTemplate.exchange(
                 getProductRequestURL,
                 HttpMethod.GET,
