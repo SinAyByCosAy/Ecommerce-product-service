@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface ThirdPartyProductServiceAdapter {
     List<GenericProductDto> getAllProducts();
-    GenericProductDto getProductById(Long id)throws NotFoundException;
+    GenericProductDto getProductById(Long id);
     GenericProductDto createProduct(GenericProductDto product);
     GenericProductDto deleteProduct(Long id);
     GenericProductDto updateProduct(GenericProductDto product, Long id);

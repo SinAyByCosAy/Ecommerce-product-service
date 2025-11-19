@@ -23,7 +23,7 @@ public class FakeStoreServiceAdapter implements ThirdPartyProductServiceAdapter 
     }
 
     @Override
-    public GenericProductDto getProductById(Long id)throws NotFoundException {
+    public GenericProductDto getProductById(Long id){
         return mapToGenericDto(fakeStoreProductServiceClient.getProductById(id));
     }
 

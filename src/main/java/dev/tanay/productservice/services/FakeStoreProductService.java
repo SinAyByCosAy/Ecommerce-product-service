@@ -21,7 +21,7 @@ public class FakeStoreProductService implements ProductService{
     }
 
     @Override
-    public GenericProductDto getProductById(Long id)throws NotFoundException {
+    public GenericProductDto getProductById(Long id){
         return thirdPartyProductServiceAdapter.getProductById(id);
     }
 
@@ -31,12 +31,12 @@ public class FakeStoreProductService implements ProductService{
     }
 
     @Override
-    public GenericProductDto deleteProduct(Long id)throws NotFoundException{
+    public GenericProductDto deleteProduct(Long id){
         return thirdPartyProductServiceAdapter.deleteProduct(id);
     }
 
     @Override
-    public GenericProductDto updateProduct(GenericProductDto product, Long id)throws NotFoundException{
+    public GenericProductDto updateProduct(GenericProductDto product, Long id){
         return thirdPartyProductServiceAdapter.updateProduct(product, id);
     }
 }

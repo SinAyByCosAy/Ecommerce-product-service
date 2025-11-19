@@ -26,7 +26,7 @@ public class ProductController {
         return productService.getAllProducts();
     }
     @GetMapping("{id}")
-    public GenericProductDto getProductById(@PathVariable Long id)throws NotFoundException {
+    public GenericProductDto getProductById(@PathVariable Long id){
         return productService.getProductById(id);
     }
     @PostMapping
@@ -34,14 +34,14 @@ public class ProductController {
         return productService.createProduct(product);
     }
     @DeleteMapping("{id}")
-    public ResponseEntity<GenericProductDto> deleteProduct(@PathVariable Long id) throws NotFoundException{
+    public ResponseEntity<GenericProductDto> deleteProduct(@PathVariable Long id){
         return new ResponseEntity<>(
                 productService.deleteProduct(id),
                 HttpStatus.NOT_FOUND
         );
     }
     @PutMapping("{id}")
-    public GenericProductDto updateProduct(@RequestBody GenericProductDto product, @PathVariable Long id) throws NotFoundException{
+    public GenericProductDto updateProduct(@RequestBody GenericProductDto product, @PathVariable Long id){
         return productService.updateProduct(product, id);
     }
 }
