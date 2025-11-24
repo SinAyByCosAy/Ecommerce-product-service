@@ -6,6 +6,8 @@ import dev.tanay.productservice.exceptions.NotFoundException;
 import dev.tanay.productservice.services.ProductService;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -22,6 +24,7 @@ import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -83,6 +86,8 @@ class ProductControllerTest {
     }
     @Nested
     class GetProductById{
+        @Captor
+        private ArgumentCaptor<Long> idCaptor;
         @Test
         void testGetProductById_ReturnSuccess()throws Exception {
             GenericProductDto product = new GenericProductDto();
@@ -103,6 +108,16 @@ class ProductControllerTest {
                     .andExpect(status().isNotFound())
                     .andExpect(jsonPath("$.errorCode", is("NOT_FOUND")))
                     .andExpect(jsonPath("$.message", is("Product not found")));
+        }
+        @Test
+        void testGetProductById_ServiceArgumentMatch()throws Exception{
+            Long id = 10L;
+            when(productService.getProductById(any(Long.class)))
+                    .thenReturn(new GenericProductDto());
+            mockMvc.perform(get("/products/10"))
+                    .andReturn();
+            verify(productService).getProductById(idCaptor.capture());
+            assertEquals(id, idCaptor.getValue());
         }
     }
     @Nested
