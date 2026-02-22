@@ -9,11 +9,13 @@ import io.jsonwebtoken.security.Keys;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
 import java.time.Instant;
 import java.util.List;
 
+@Component
 public class JwtTokenValidator implements TokenValidator{
     private JwtKeyRepository jwtKeyRepository;
     public JwtTokenValidator (JwtKeyRepository jwtKeyRepository){
