@@ -31,7 +31,6 @@ public class JwtTokenValidator implements TokenValidator{
         claims = Jwts.parser()
                 .keyLocator(header -> {
                     String kid = (String) header.get("kid"); // pick the correct secret that signed it
-                    System.out.println(kid);
                     JwtKeyEntity keyEntity = jwtKeyRepository.findByKid(kid)
                             .orElseThrow(() -> new RuntimeException("Unknown key"));
                     if(keyEntity.getRetiredAt() != null && keyEntity.getRetiredAt().isBefore(Instant.now()))

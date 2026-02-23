@@ -6,6 +6,7 @@ import dev.tanay.productservice.services.ProductService;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,6 +22,7 @@ public class ProductController {
     public ProductController(ProductService productService){
         this.productService = productService;
     }
+    @PreAuthorize("hasRole('PUBLIC')")
     @GetMapping
     public List<GenericProductDto> getAllProducts(){
         return productService.getAllProducts();
