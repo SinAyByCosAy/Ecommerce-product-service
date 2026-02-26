@@ -27,8 +27,7 @@ public class JwtTokenValidator implements TokenValidator{
         String[] parts = token.split("\\.");
         if(parts.length != 3) throw new RuntimeException("Invalid token");
 
-        Claims claims;
-        claims = Jwts.parser()
+        Claims claims = Jwts.parser()
                 .keyLocator(header -> {
                     String kid = (String) header.get("kid"); // pick the correct secret that signed it
                     JwtKeyEntity keyEntity = jwtKeyRepository.findByKid(kid)

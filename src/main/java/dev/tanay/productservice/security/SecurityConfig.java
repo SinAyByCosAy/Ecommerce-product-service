@@ -13,7 +13,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http, TokenValidator tokenValidator) throws Exception {
-        JwtAuthenticationFilter filter = new JwtAuthenticationFilter(tokenValidator);
+        TokenAuthenticationFilter filter = new TokenAuthenticationFilter(tokenValidator);
 
         http
                 .csrf(csrf -> csrf.disable()) // Disable CSRF for non-browser clients (Postman/React)

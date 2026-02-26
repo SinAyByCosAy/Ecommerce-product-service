@@ -11,9 +11,9 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 
-public class JwtAuthenticationFilter extends OncePerRequestFilter {
+public class TokenAuthenticationFilter extends OncePerRequestFilter {
     private final TokenValidator tokenValidator;
-    public JwtAuthenticationFilter(TokenValidator tokenValidator){
+    public TokenAuthenticationFilter(TokenValidator tokenValidator){
         this.tokenValidator = tokenValidator;
     }
     @Override
