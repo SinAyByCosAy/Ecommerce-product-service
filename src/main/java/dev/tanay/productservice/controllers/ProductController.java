@@ -1,9 +1,7 @@
 package dev.tanay.productservice.controllers;
 
 import dev.tanay.productservice.dtos.GenericProductDto;
-import dev.tanay.productservice.exceptions.NotFoundException;
 import dev.tanay.productservice.services.ProductService;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -27,6 +25,7 @@ public class ProductController {
     public List<GenericProductDto> getAllProducts(){
         return productService.getAllProducts();
     }
+//    @PreAuthorize("hasRole('PUBLIC')")
     @GetMapping("{id}")
     public GenericProductDto getProductById(@PathVariable Long id){
         return productService.getProductById(id);
