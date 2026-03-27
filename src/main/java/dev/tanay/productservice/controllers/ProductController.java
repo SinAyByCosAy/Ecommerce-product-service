@@ -22,7 +22,7 @@ public class ProductController {
     public ProductController(ProductService productService){
         this.productService = productService;
     }
-    @PreAuthorize("hasRole('PUBLIC')")
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping
     public List<GenericProductDto> getAllProducts(){
         return productService.getAllProducts();
