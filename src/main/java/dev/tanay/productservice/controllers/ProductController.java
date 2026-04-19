@@ -26,6 +26,7 @@ public class ProductController {
         return productService.getAllProducts();
     }
 //    @PreAuthorize("hasRole('PUBLIC')")
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("{id}")
     public GenericProductDto getProductById(@PathVariable Long id){
         return productService.getProductById(id);

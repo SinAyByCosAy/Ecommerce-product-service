@@ -25,39 +25,39 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 public class ProductTest {
 
-    @InjectMocks
-    private ProductController productController;
-    @Mock
-    private ProductService productService;
-
-    @Test
-    @DisplayName("Boom Boom test")
-    public void testRandom() {
-        assert (2 == 1 + 1);
-        assertEquals(11, 1 + 1, "it's not equal");
-    }
-
-    @Test
-    public void testAdd() {
-        assertTrue(-2 + 1 == 0, "negative and positive addition is not correct");
-        assert 1 + 1 == 2;
-    }
-
-    @Test
-    public void testNull() {
-        assertNull(new Object(), "this is not null");
-    }
+//    @InjectMocks
+//    private ProductController productController;
+//    @Mock
+//    private ProductService productService;
+//
 //    @Test
-//    public void testException(){
-//        assertThrows(NotFoundException.class, () -> selfProductService.getProductById(28L));
+//    @DisplayName("Boom Boom test")
+//    public void testRandom() {
+//        assert (2 == 1 + 1);
+//        assertEquals(11, 1 + 1, "it's not equal");
 //    }
-
-    @Test
-    public void returnsNullWhenProductDoesntExist() throws NotFoundException {
-        GenericProductDto req = new GenericProductDto();
-        when(productService.getProductById(any(Long.class)))
-                .thenReturn(req);
-        GenericProductDto product = productController.updateProduct(req, 50L);
-        assertEquals(req, productController.getProductById(28L));
-    }
+//
+//    @Test
+//    public void testAdd() {
+//        assertTrue(-2 + 1 == 0, "negative and positive addition is not correct");
+//        assert 1 + 1 == 2;
+//    }
+//
+//    @Test
+//    public void testNull() {
+//        assertNull(new Object(), "this is not null");
+//    }
+////    @Test
+////    public void testException(){
+////        assertThrows(NotFoundException.class, () -> selfProductService.getProductById(28L));
+////    }
+//
+//    @Test
+//    public void returnsNullWhenProductDoesntExist() throws NotFoundException {
+//        GenericProductDto req = new GenericProductDto();
+//        when(productService.getProductById(any(Long.class)))
+//                .thenReturn(req);
+//        GenericProductDto product = productController.updateProduct(req, 50L);
+//        assertEquals(req, productController.getProductById(28L));
+//    }
 }

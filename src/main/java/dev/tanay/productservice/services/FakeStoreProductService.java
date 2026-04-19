@@ -4,11 +4,12 @@ import dev.tanay.productservice.thirdpartyclients.adapters.ThirdPartyProductServ
 import dev.tanay.productservice.dtos.GenericProductDto;
 import dev.tanay.productservice.exceptions.NotFoundException;
 import org.springframework.context.annotation.Primary;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Primary
+//@Primary
 @Service
 public class FakeStoreProductService implements ProductService{
     private ThirdPartyProductServiceAdapter thirdPartyProductServiceAdapter;
@@ -17,6 +18,7 @@ public class FakeStoreProductService implements ProductService{
     }
     @Override
     public List<GenericProductDto> getAllProducts(){
+        System.out.println("got in: " + SecurityContextHolder.getContext().getAuthentication().getAuthorities());
         return thirdPartyProductServiceAdapter.getAllProducts();
     }
 

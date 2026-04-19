@@ -33,12 +33,14 @@ public class FakeStoreProductServiceClient {
     }
 
     public List<FakeStoreProductDto> getAllProducts(){
+        System.out.println("trying to get the body first");
         ResponseEntity<List<FakeStoreProductDto>> response = restTemplate.exchange(
                 baseProductRequestURL,
                 HttpMethod.GET,
                 null,
                 new ParameterizedTypeReference<List<FakeStoreProductDto>>(){}
         );
+        System.out.println("got the body" + response.getBody());
 
         return response.getBody();
     }

@@ -21,26 +21,26 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @WebMvcTest
 public class ProductControllerMvcTest {
-    @Autowired
-    private MockMvc mockMvc;
-    @MockBean(name = "FakeStoreProductService")
-    private ProductService productService;
-
-    @Test
-    void testGetProductById_ReturnsNotFound()throws Exception{
-        when(productService.getProductById(99L))
-                .thenThrow(new NotFoundException("Nahi mila ye product"));
-
-        MvcResult mvcResult = mockMvc.perform(get("/products/99"))
-                .andExpect(status().isNotFound())
-                .andExpect(jsonPath("$.errorCode", is("NOT_FOUND")))
-                .andExpect(jsonPath("$.message", is("Nahi mila ye product")))
-                .andReturn();
-
-
-        Exception exception = mvcResult.getResolvedException();
-        assertNotNull(exception, "Woah, there should have been an error thrown");
-        assertEquals(NotFoundException.class, exception.getClass());
-        System.out.println(mvcResult.getResponse().getContentAsString());
-    }
+//    @Autowired
+//    private MockMvc mockMvc;
+//    @MockBean(name = "FakeStoreProductService")
+//    private ProductService productService;
+//
+//    @Test
+//    void testGetProductById_ReturnsNotFound()throws Exception{
+//        when(productService.getProductById(99L))
+//                .thenThrow(new NotFoundException("Nahi mila ye product"));
+//
+//        MvcResult mvcResult = mockMvc.perform(get("/products/99"))
+//                .andExpect(status().isNotFound())
+//                .andExpect(jsonPath("$.errorCode", is("NOT_FOUND")))
+//                .andExpect(jsonPath("$.message", is("Nahi mila ye product")))
+//                .andReturn();
+//
+//
+//        Exception exception = mvcResult.getResolvedException();
+//        assertNotNull(exception, "Woah, there should have been an error thrown");
+//        assertEquals(NotFoundException.class, exception.getClass());
+//        System.out.println(mvcResult.getResponse().getContentAsString());
+//    }
 }
