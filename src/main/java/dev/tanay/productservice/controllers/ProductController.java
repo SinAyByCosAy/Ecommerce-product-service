@@ -2,6 +2,8 @@ package dev.tanay.productservice.controllers;
 
 import dev.tanay.productservice.dtos.GenericProductDto;
 import dev.tanay.productservice.services.ProductService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -45,5 +47,11 @@ public class ProductController {
     @PutMapping("{id}")
     public GenericProductDto updateProduct(@RequestBody GenericProductDto product, @PathVariable Long id){
         return productService.updateProduct(product, id);
+    }
+
+    @PostMapping("/search")
+    public Page<GenericProductDto> searchProducts(@RequestParam String title,
+                                                  Pageable pageable){
+        return productService.searchProducts(title, pageable);
     }
 }
