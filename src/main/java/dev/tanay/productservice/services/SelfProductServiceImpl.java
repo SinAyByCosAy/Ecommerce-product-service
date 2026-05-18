@@ -81,6 +81,13 @@ public class SelfProductServiceImpl implements ProductService{
             for(Product p : products) System.out.println(p.getTitle());
         }
     }
+
+    // Search products on Title and Paging them
+    public Page<GenericProductDto> searchProducts(String title, Pageable pageable){
+        Page<Product> pagedProducts = productRepository.findByTitleContainingIgnoreCase(title, pageable);
+        return pagedProducts.map(this::mapToGenericDto);
+    }
+
     private void setProductProperties(Product newProduct, GenericProductDto product){
         newProduct.setTitle(product.getTitle());
         newProduct.setDescription(product.getDescription());
@@ -110,10 +117,5 @@ public class SelfProductServiceImpl implements ProductService{
         genericProduct.setDescription(product.getDescription());
         genericProduct.setCategory(product.getCategory().getName());
         return genericProduct;
-    }
-
-    public Page<GenericProductDto> searchProducts(String title, Pageable pageable){
-        Page<Product> pagedProducts = productRepository.findByTitleContainingIgnoreCase(title, pageable);
-        return null;
     }
 }
