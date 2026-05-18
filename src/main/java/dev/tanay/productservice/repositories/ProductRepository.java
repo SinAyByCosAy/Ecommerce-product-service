@@ -2,6 +2,8 @@ package dev.tanay.productservice.repositories;
 
 import dev.tanay.productservice.models.Category;
 import dev.tanay.productservice.models.Product;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -12,7 +14,6 @@ import java.util.UUID;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
-    Product findByTitle(String title);
     Product findByTitleAndPrice_Price(String title, double price);
     @Query(CustomQueries.FIND_ALL_BY_TITLE)
     List<Product> findAllByTitle(String name);
@@ -20,4 +21,6 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     Optional<Product> findById(Long id);
     void deleteById(Long id);
     List<Product> findByCategoryId(Long id);
+
+    Page<Product> findByTitleContainingIgnoreCase(String title, Pageable pageable);
 }

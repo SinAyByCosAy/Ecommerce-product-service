@@ -9,6 +9,8 @@ import dev.tanay.productservice.repositories.CategoryRepository;
 import dev.tanay.productservice.repositories.ProductRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.context.annotation.Primary;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -108,5 +110,10 @@ public class SelfProductServiceImpl implements ProductService{
         genericProduct.setDescription(product.getDescription());
         genericProduct.setCategory(product.getCategory().getName());
         return genericProduct;
+    }
+
+    private Page<GenericProductDto> searchProducts(String title, Pageable pageable){
+        Page<Product> pagedProducts = productRepository.findByTitleContainingIgnoreCase(title, pageable);
+        return null;
     }
 }
