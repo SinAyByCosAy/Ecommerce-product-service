@@ -2,6 +2,7 @@ package dev.tanay.productservice.controllers;
 
 import dev.tanay.productservice.dtos.GenericProductDto;
 import dev.tanay.productservice.services.ProductService;
+import dev.tanay.productservice.services.SelfProductServiceImpl;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -19,8 +20,10 @@ import java.util.List;
 public class ProductController {
 
     private ProductService productService;
-    public ProductController(ProductService productService){
+    private SelfProductServiceImpl selfProductService;
+    public ProductController(ProductService productService, SelfProductServiceImpl selfProductService){
         this.productService = productService;
+        this.selfProductService = selfProductService;
     }
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping
@@ -52,6 +55,6 @@ public class ProductController {
     @PostMapping("/search")
     public Page<GenericProductDto> searchProducts(@RequestParam String title,
                                                   Pageable pageable){
-        return productService.searchProducts(title, pageable);
+        return selfProductService.searchProducts(title, pageable);
     }
 }

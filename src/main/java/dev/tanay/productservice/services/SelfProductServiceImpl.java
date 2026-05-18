@@ -112,7 +112,7 @@ public class SelfProductServiceImpl implements ProductService{
         return genericProduct;
     }
 
-    private Page<GenericProductDto> searchProducts(String title, Pageable pageable){
+    public Page<GenericProductDto> searchProducts(String title, Pageable pageable){
         Page<Product> pagedProducts = productRepository.findByTitleContainingIgnoreCase(title, pageable);
         return null;
     }
