@@ -1,6 +1,7 @@
 package dev.tanay.productservice.services;
 
 import dev.tanay.productservice.dtos.GenericProductDto;
+import dev.tanay.productservice.dtos.SearchRequestDto;
 import dev.tanay.productservice.exceptions.NotFoundException;
 import dev.tanay.productservice.models.Category;
 import dev.tanay.productservice.models.Price;
@@ -86,6 +87,10 @@ public class SelfProductServiceImpl implements ProductService{
     public Page<GenericProductDto> searchProducts(String title, Pageable pageable){
         Page<Product> pagedProducts = productRepository.findByTitleContainingIgnoreCase(title, pageable);
         return pagedProducts.map(this::mapToGenericDto);
+    }
+
+    public Page<GenericProductDto> searchProductsManually(SearchRequestDto requestDto){
+        return null;
     }
 
     private void setProductProperties(Product newProduct, GenericProductDto product){
