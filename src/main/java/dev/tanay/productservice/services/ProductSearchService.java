@@ -13,7 +13,7 @@ public class ProductSearchService {
     public ProductSearchService(ProductSearchRepository productSearchRepository){
         this.productSearchRepository = productSearchRepository;
     }
-    private SearchPage<ProductDocument> searchProductDocument(String keyword, Pageable pageable){
+    public SearchPage<ProductDocument> searchProductDocument(String keyword, Pageable pageable){
         if(keyword == null || keyword.trim().isEmpty()) return null;
         return productSearchRepository.findByTitleMatchesOrDescriptionMatches(keyword, keyword, pageable);
     }
