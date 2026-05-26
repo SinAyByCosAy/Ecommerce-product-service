@@ -2,7 +2,6 @@ package dev.tanay.productservice.controllers;
 
 import dev.tanay.productservice.dtos.GenericProductDto;
 import dev.tanay.productservice.dtos.SearchRequestDto;
-import dev.tanay.productservice.services.ProductService;
 import dev.tanay.productservice.services.SelfProductServiceImpl;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.PostMapping;

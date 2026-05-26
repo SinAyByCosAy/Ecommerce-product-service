@@ -2,6 +2,7 @@ package dev.tanay.productservice.services;
 
 import dev.tanay.productservice.dtos.GenericProductDto;
 import dev.tanay.productservice.dtos.SearchRequestDto;
+import dev.tanay.productservice.dtos.SortCriteria;
 import dev.tanay.productservice.exceptions.NotFoundException;
 import dev.tanay.productservice.models.Category;
 import dev.tanay.productservice.models.Price;
@@ -11,10 +12,14 @@ import dev.tanay.productservice.repositories.ProductRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.context.annotation.Primary;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Primary
@@ -22,6 +27,11 @@ import java.util.stream.Collectors;
 public class SelfProductServiceImpl implements ProductService{
     private ProductRepository productRepository;
     private CategoryRepository categoryRepository;
+
+    private static final Set<String> ALLOWED_SORT_FIELDS = Set.of(
+            "title", "price.price", "averageRating", "category.name"
+    );
+
     public SelfProductServiceImpl(ProductRepository productRepository, CategoryRepository categoryRepository){
         this.productRepository = productRepository;
         this.categoryRepository = categoryRepository;
@@ -90,7 +100,30 @@ public class SelfProductServiceImpl implements ProductService{
     }
 
     public Page<GenericProductDto> searchProductsManually(SearchRequestDto requestDto){
-        return null;
+        List<Sort.Order> orders = new ArrayList<>();
+
+        if(requestDto.getSortByParameters() != null && !requestDto.getSortByParameters().isEmpty()){
+            for(SortCriteria criteria : requestDto.getSortByParameters()){
+                String field = criteria.getParameterName();
+                if(!ALLOWED_SORT_FIELDS.contains(field)){
+                    throw new IllegalArgumentException("Invalid sort field: " + field);
+                }
+                Sort.Direction direction = "DESC".equalsIgnoreCase(criteria.getSortOrder())
+                        ? Sort.Direction.DESC
+                        : Sort.Direction.ASC;
+                orders.add(new Sort.Order(direction, field));
+            }
+        }
+
+        Sort sort = orders.isEmpty() ? Sort.unsorted() : Sort.by(orders);
+        Pageable pageable = PageRequest.of(requestDto.getPageNumber(), requestDto.getSize(), sort);
+
+        Object res = pageable.getSort().getOrderFor("price.price");
+        Page<Product> pagedProducts = productRepository.findByTitleContainingIgnoreCase(
+                requestDto.getQuery(),
+                pageable
+        );
+        return pagedProducts.map(this::mapToGenericDto);
     }
 
     private void setProductProperties(Product newProduct, GenericProductDto product){
