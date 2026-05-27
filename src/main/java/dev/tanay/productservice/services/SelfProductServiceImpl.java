@@ -7,8 +7,10 @@ import dev.tanay.productservice.exceptions.NotFoundException;
 import dev.tanay.productservice.models.Category;
 import dev.tanay.productservice.models.Price;
 import dev.tanay.productservice.models.Product;
+import dev.tanay.productservice.models.ProductDocument;
 import dev.tanay.productservice.repositories.CategoryRepository;
 import dev.tanay.productservice.repositories.ProductRepository;
+import dev.tanay.productservice.repositories.ProductSearchRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.context.annotation.Primary;
 import org.springframework.data.domain.Page;
@@ -27,14 +29,18 @@ import java.util.stream.Collectors;
 public class SelfProductServiceImpl implements ProductService{
     private ProductRepository productRepository;
     private CategoryRepository categoryRepository;
+    private ProductSearchRepository productSearchRepository;
 
     private static final Set<String> ALLOWED_SORT_FIELDS = Set.of(
             "title", "price.price", "averageRating", "category.name"
     );
 
-    public SelfProductServiceImpl(ProductRepository productRepository, CategoryRepository categoryRepository){
+    public SelfProductServiceImpl(ProductRepository productRepository,
+                                  CategoryRepository categoryRepository,
+                                  ProductSearchRepository productSearchRepository){
         this.productRepository = productRepository;
         this.categoryRepository = categoryRepository;
+        this.productSearchRepository = productSearchRepository;
     }
     @Override
     public List<GenericProductDto> getAllProducts(){
@@ -54,6 +60,14 @@ public class SelfProductServiceImpl implements ProductService{
         productRepository.save(newProduct); //new uuid will get generated here while inserting since it was null
         product.setId(newProduct.getId()); //in actual projects, we should create a separate response dto
         //it should be separate as we might not want all the data to be sent back
+
+        //save the new product in elasticsearch
+        ProductDocument searchProduct = new ProductDocument();
+        searchProduct.setTitle(product.getTitle());
+        searchProduct.setDescription(product.getDescription());
+        searchProduct.setBrandName(product.getCategory());
+        searchProduct.setPrice(product.getPrice());
+        productSearchRepository.save(searchProduct);
         return product;
     }
     @Override

@@ -17,7 +17,7 @@ public class ProductDocument {
     private String title;
     @Field(type = FieldType.Text)
     private String description;
-    @Field(type = FieldType.Text)
+    @Field(type = FieldType.Double)
     private Double price;
     @Field(type = FieldType.Keyword)
     private String brandName;
