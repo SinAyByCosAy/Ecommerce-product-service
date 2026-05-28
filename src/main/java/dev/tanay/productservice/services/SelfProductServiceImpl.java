@@ -63,6 +63,7 @@ public class SelfProductServiceImpl implements ProductService{
 
         //save the new product in elasticsearch
         ProductDocument searchProduct = new ProductDocument();
+        searchProduct.setId(product.getId()+"");
         searchProduct.setTitle(product.getTitle());
         searchProduct.setDescription(product.getDescription());
         searchProduct.setBrandName(product.getCategory());
