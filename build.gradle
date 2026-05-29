@@ -40,6 +40,8 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'org.springframework.boot:spring-boot-starter-data-elasticsearch'
+    // Source: https://mvnrepository.com/artifact/org.springframework.kafka/spring-kafka
+    implementation("org.springframework.kafka:spring-kafka")
 
 }
 
