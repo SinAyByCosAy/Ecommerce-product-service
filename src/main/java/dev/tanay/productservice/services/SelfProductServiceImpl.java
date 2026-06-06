@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-@Primary
+//@Primary
 @Service("SelfProductServiceImpl")
 public class SelfProductServiceImpl implements ProductService{
     private ProductRepository productRepository;
