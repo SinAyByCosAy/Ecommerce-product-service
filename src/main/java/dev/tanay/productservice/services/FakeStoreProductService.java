@@ -17,7 +17,7 @@ public class FakeStoreProductService implements ProductService{
     private ThirdPartyProductServiceAdapter thirdPartyProductServiceAdapter;
     private RedisTemplate<String, Object> redisTemplate;
     public FakeStoreProductService(ThirdPartyProductServiceAdapter thirdPartyProductServiceAdapter,
-                                   RedisTemplate redisTemplate){
+                                   RedisTemplate<String, Object> redisTemplate){
         this.thirdPartyProductServiceAdapter = thirdPartyProductServiceAdapter;
         this.redisTemplate = redisTemplate;
 
