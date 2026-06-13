@@ -2,6 +2,7 @@ plugins {
     id 'java'
     id 'org.springframework.boot' version '3.2.2'
     id 'io.spring.dependency-management' version '1.1.4'
+    id "de.undercouch.download" version "5.3.0"
 }
 
 group = 'dev.tanay'
@@ -38,12 +39,23 @@ dependencies {
     runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.13.0'
     runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.13.0'
     implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
-    implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'org.springframework.boot:spring-boot-starter-data-elasticsearch'
     // Source: https://mvnrepository.com/artifact/org.springframework.kafka/spring-kafka
     implementation "org.springframework.boot:spring-boot-starter-data-redis"
 
 }
+
+task downloadNewrelic(type: Download) {
+    mkdir 'newrelic'
+    src 'https://download.newrelic.com/newrelic/java-agent/newrelic-agent/current/newrelic-java.zip'
+    dest file('newrelic')
+}
+
+task unzipNewrelic(type: Copy) {
+    from zipTree(file('newrelic/newrelic-java.zip'))
+    into rootDir
+}
+
 
 tasks.named('test') {
     useJUnitPlatform()
