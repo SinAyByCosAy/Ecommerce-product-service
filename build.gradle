@@ -47,6 +47,8 @@ dependencies {
     // Source: https://mvnrepository.com/artifact/org.springframework.kafka/spring-kafka
     implementation "org.springframework.boot:spring-boot-starter-data-redis"
     implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
+    // Source: https://mvnrepository.com/artifact/io.micrometer/micrometer-registry-prometheus
+    implementation "io.micrometer:micrometer-registry-prometheus"
 
 }
 
