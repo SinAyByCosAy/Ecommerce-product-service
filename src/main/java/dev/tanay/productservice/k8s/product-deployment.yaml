@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: productservice
+
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: productservice
+
+  template:
+    metadata:
+      labels:
+        app: productservice
+    spec:
+      containers:
+        - name: productservice
+          image: productservice:1.0
+          imagePullPolicy: Never
+
+          ports:
+            - containerPort: 7500
+          envFrom:
+            - configMapRef:
+                name: product-config
